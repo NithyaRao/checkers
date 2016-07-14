@@ -2,14 +2,14 @@
 /* eslint-disable newline-per-chained-call, new-cap, no-param-reassign, consistent-return, no-underscore-dangle, array-callback-return, max-len */
 
 import express from 'express';
-import Player from '../models/player';
-import bodyValidator from '../validators/players/body';
+import Game from '../models/game';
+import bodyValidator from '../validators/games/body';
 
 const router = module.exports = express.Router();
 
 // create is register a user
 router.post('/', bodyValidator, (req, res) => {
-  Player.create(res.locals, (err, player) => {
-    res.send({ player });
+  Game.create(res.locals, (err, game) => {
+    res.send({ game });
   });
 });

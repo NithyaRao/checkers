@@ -58,7 +58,18 @@ describe('Players', () => {
   });
 });
 
-// pieces: [{ 0: 0 }, { 0: 2 }, { 0: 4 }, { 0: 6 },
+// [{ x: 0, y: 0,  player: player1, isKing: false}, { x: 0, y: 2,  player: player1, isKing: false},
+//   { x: 0, y: 4,  player: player1, isKing: false}, { x: 0, y: 6,  player: player1, isKing: false},
+// { x: 1, y: 1,  player: player1, isKing: false}, { x: 1, y: 3,  player: player1, isKing: false},
+// { x: 1, y: 5,  player: player1, isKing: false}, { x: 1, y: 7,  player: player1, isKing: false },
+// { x: 2, y: 0,  player: player1, isKing: false}, { x: 2, y: 2,  player: player1, isKing: false},
+// { x: 2, y: 4,  player: player1, isKing: false}, { x: 2, y: 6,  player: player1, isKing: false}],
+
+
+// pieces: [{ x:0, y: 0, player: player1, isKing: false },
+            // { x:0, y: 2, player: player1, isKing: false },
+            // { x:0, y: 6, player: player1, isKing: false },
+            // { 0: 2 }, { 0: 4 }, { 0: 6 },
 //                                 { 1: 1 }, { 1: 3 }, { 1: 5 }, { 1: 7 },
 //                                 { 2: 0 }, { 2: 2 }, { 2: 4 }, { 2: 6 },
 //                                 { 1: 7 }, { 3: 7 }, { 5: 7 }, { 7: 7 },
