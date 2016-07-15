@@ -1,4 +1,4 @@
-/* eslint-disable no-use-before-define, func-names */
+/* eslint-disable no-use-before-define, func-names, no-underscore-dangle */
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
@@ -31,8 +31,44 @@ const schema = new Schema({
       { x: 2, y: 5, player: 'player2', isKing: false },
       { x: 4, y: 5, player: 'player2', isKing: false },
       { x: 6, y: 5, player: 'player2', isKing: false },
+      { x: 0, y: 3, player: '', isKing: false },
+      { x: 1, y: 4, player: '', isKing: false },
+      { x: 2, y: 3, player: '', isKing: false },
+      { x: 3, y: 4, player: '', isKing: false },
+      { x: 4, y: 3, player: '', isKing: false },
+      { x: 5, y: 4, player: '', isKing: false },
+      { x: 6, y: 3, player: '', isKing: false },
+      { x: 7, y: 4, player: '', isKing: false },
+
     ] },
+  currentPlayer: { type: mongoose.Schema.ObjectId, ref: 'Player' },
   dateCreated: { type: Date, default: Date.now },
 });
+
+schema.methods.setCurrentPlayer = function (player) {
+  this.currentPlayer = player._id;
+  return true;
+};
+
+schema.methods.validMove = function (pos1, pos2) {
+  const temp = this.board.find((entry) => entry.x === pos2.x
+    && entry.y === pos2.y && entry.player === '');
+  if (temp) {
+    if (Math.abs(temp.x * 1 - pos1.x * 1) === 1 && Math.abs(temp.y * 1 - pos1.y * 1) === 1) {
+      return true;
+    }
+  }
+  return false;
+};
+
+schema.methods.move = function (pos1, pos2) {
+  const curPosIndex = this.board.findIndex((entry) => entry.x === pos1.x
+     && entry.y === pos1.y);
+  const movePosIndex = this.board.findIndex((entry) => entry.x === pos2.x
+     && entry.y === pos2.y);
+  this.board[movePosIndex].player = this.board[curPosIndex].player;
+  // console.log('this.board.movePos.player: ', this.board[movePosIndex].player);
+  this.board[curPosIndex].player = '';
+};
 
 module.exports = mongoose.model('Game', schema);

@@ -5,9 +5,16 @@ const expect = require('chai').expect;
 const request = require('supertest');
 const app = require('../../dst/server');
 const cp = require('child_process');
-const Game = require('../../dst/models/game');
+// const Game = require('../../dst/models/game');
 
 describe('post /games', () => {
+  beforeEach((done) => {
+  // run command script
+    cp.execFile(`${__dirname}/../scripts/populate.sh`, { cwd: `${__dirname}/../scripts` }, () => {
+      done();
+    });
+  });
+
   it('should create a game', (done) => {
     request(app)
     .post('/games')
@@ -17,7 +24,7 @@ describe('post /games', () => {
       expect(rsp.status).to.equal(200);
       expect(rsp.body.game.__v).to.not.be.null;
       expect(rsp.body.game._id).to.not.be.null;
-      expect(rsp.body.game.board.length).to.equal(24);
+      expect(rsp.body.game.board.length).to.equal(32);
       done();
     });
   });
