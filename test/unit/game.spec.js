@@ -33,7 +33,7 @@ describe('Game', () => {
       const p1 = new Player({ name: 'P1' });
       const p2 = new Player({ name: 'P2' });
       const game = new Game({ player1: p1, player2: p2 });
-
+      game.setCurrentPlayer(p1);
       game.validate(err => {
         expect(err).to.be.undefined;
         expect(game._id).to.be.ok;
@@ -42,6 +42,7 @@ describe('Game', () => {
         expect(game.board[13].x).to.equal(2);
         expect(game.board[13].player).to.equal('player2');
         expect(game.dateCreated).to.be.ok;
+        expect(game.currentPlayer).to.equal(p1._id);
         done();
       });
     });
@@ -61,99 +62,88 @@ describe('Game', () => {
     });
   });
   describe('Move', () => {
-    it('should be a valid move for current Player ', (done) => {
+    it('should allow current Player P1 to move ', (done) => {
       const p1 = new Player({ name: 'P1' });
       const p2 = new Player({ name: 'P2' });
       const game = new Game({ player1: p1, player2: p2 });
       game.setCurrentPlayer(p1);
-      game.validMove({ x: 1, y: 2 }, { x: 2, y: 3 });
-      game.validate(err => {
-        expect(err).to.be.undefined;
-        done();
+      // const errormove = game.validMove(p1, { x: 1, y: 2 }, { x: 2, y: 3 });
+      game.move(p1, { x: 1, y: 2 }, { x: 2, y: 3 }, (error, game1) => {
+        game.validate(err => {
+          expect(err).to.be.undefined;
+          expect(game1._id).to.equal(game._id);
+          done();
+        });
       });
     });
-    it('should allow current Player to move ', (done) => {
+    it('should not allow current Player P1 to move - Invalid move ', (done) => {
       const p1 = new Player({ name: 'P1' });
       const p2 = new Player({ name: 'P2' });
       const game = new Game({ player1: p1, player2: p2 });
       game.setCurrentPlayer(p1);
-      const movePos = game.validMove({ x: 1, y: 2 }, { x: 2, y: 3 });
-      if (movePos) {
-        game.move({ x: 1, y: 2 }, { x: 2, y: 3 });
-      }
-      game.validate(err => {
-        expect(err).to.be.undefined;
-        done();
+      game.move(p1, { x: 1, y: 2 }, { x: 6, y: 5 }, (error, game1) => {
+        game.validate(err => {
+          expect(err).to.be.undefined;
+          expect(error).to.equal('Invalid Move');
+          done();
+        });
       });
     });
-    it('should not allow current Player to move - Invalid move ', (done) => {
+    it('should not allow Player P1 to move - Not current Player ', (done) => {
       const p1 = new Player({ name: 'P1' });
       const p2 = new Player({ name: 'P2' });
       const game = new Game({ player1: p1, player2: p2 });
       game.setCurrentPlayer(p1);
-      const movePos = game.validMove({ x: 1, y: 2 }, { x: 6, y: 5 });
-      if (movePos) {
-        game.move({ x: 1, y: 2 }, { x: 2, y: 3 });
-      }
-      game.validate(err => {
-        expect(err).to.be.undefined;
-        done();
+      game.move(p1, { x: 1, y: 2 }, { x: 6, y: 5 }, (error, game1) => {
+        game.validate(err => {
+          expect(err).to.be.undefined;
+          expect(error).to.equal('Invalid Move');
+          done();
+        });
       });
     });
-    it('should allow current Player to jump ', (done) => {
+    it('should allow current Player P2 to move ', (done) => {
       const p1 = new Player({ name: 'P1' });
       const p2 = new Player({ name: 'P2' });
       const game = new Game({ player1: p1, player2: p2 });
-      game.setCurrentPlayer(p1);
-      const movePos = game.validMove({ x: 1, y: 2 }, { x: 3, y: 4 });
-      if (movePos) {
-        game.move({ x: 1, y: 2 }, { x: 3, y: 4 });
-      }
-      game.validate(err => {
-        expect(err).to.be.undefined;
-        done();
+      game.setCurrentPlayer(p2);
+      game.move(p2, { x: 0, y: 5 }, { x: 1, y: 4 }, (error, game1) => {
+        game.validate(err => {
+          expect(err).to.be.undefined;
+          expect(game1._id).to.equal(game._id);
+          done();
+        });
+      });
+    });
+    it('should not allow current Player P2 to move - Invalid move', (done) => {
+      const p1 = new Player({ name: 'P1' });
+      const p2 = new Player({ name: 'P2' });
+      const game = new Game({ player1: p1, player2: p2 });
+      game.setCurrentPlayer(p2);
+      game.move(p2, { x: 0, y: 7 }, { x: 1, y: 6 }, (error, game1) => {
+        game.validate(err => {
+          expect(err).to.be.undefined;
+          expect(error).to.equal('Invalid Move');
+          done();
+        });
       });
     });
   });
-  // describe('getWinner', () => {
-  //   it('should return undefined initially', () => {
-  //     const game = new Game();
-  //     expect(game.getWinner()).to.equal(undefined);
-  //   });
-  //   it('returns player one if player two has no pieces', (done) => {
-  //     const game = new Game(p1, p2);
-  //     expect(game.getWinner()).to.equal(p1);
-  //     done();
-  //   });
-  //   it('returns player two if player one has no pieces', (done) => {
-  //     const game = new Game(p1, p2);
-  //     expect(game.getWinner()).to.equal(p2);
-  //     done();
-  //   });
-  // });
-
-//   describe('currentPlayer', () => {
-//     it('should start as playerOne', (done) => {
-//       const game = new Game(playerOne, playerTwo);
-//       expect(game.currentPlayer()).to.equal(playerOne);
-//       done();
-//     });
+// describe('jump', () => {
+// it('should allow current Player to jump ', (done) => {
+//   const p1 = new Player({ name: 'P1' });
+//   const p2 = new Player({ name: 'P2' });
+//   const game = new Game({ player1: p1, player2: p2 });
+//   game.setCurrentPlayer(p1);
+//   const movePos = game.validMove({ x: 1, y: 2 }, { x: 3, y: 4 });
+//   if (movePos) {
+//     game.move({ x: 1, y: 2 }, { x: 3, y: 4 });
+//   }
+//   game.validate(err => {
+//     expect(err).to.be.undefined;
+//     expect(movePos).to.be.false;
+//     done();
 //   });
-//   describe('move', () => {
-//     it('should apply to player one', (done) => {
-//       // stub/mock players
-//       const game = new Game(playerOne, playerTwo);
-//       game.move();
-//       expect(playerOne.move.calledOnce).to.equal(true);
-//       expect(playerTwo.move.called).to.equal(false);
-//       done();
-//     });
-//     it('currentPlayer changes after move is called', (done) => {
-//       const game = new Game(playerOne, playerTwo);
-//       expect(game.currentPlayer()).to.equal(playerOne);
-//       game.move();
-//       expect(game.currentPlayer()).to.equal(playerTwo);
-//       done();
-//     });
-//   });
+// });
+// });
 });

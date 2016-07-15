@@ -1,12 +1,9 @@
-
 /* eslint-disable consistent-return, no-param-reassign */
 
 import joi from 'joi';
 
 const schema = {
-  winner: joi.string().regex(/^[0-9a-f]{24}$/),
-  player1: joi.string().required().regex(/^[0-9a-f]{24}$/),
-  player2: joi.string().required().regex(/^[0-9a-f]{24}$/),
+  player: joi.string().required().regex(/^[0-9a-f]{24}$/),
   initPosition: joi.object({
     x: joi.number().min(0).max(7),
     y: joi.number().min(0).max(7),

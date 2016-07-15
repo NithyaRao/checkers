@@ -24,7 +24,7 @@ lint:
 
 tests:
 	@echo [tests]
-	@PORT=5555 DB=checker-dev-db LEVEL=silly $(BIN)/istanbul cover --print summary $(BIN)/_mocha -- --recursive
+	@PORT=6000 DB=checker-test-db LEVEL=silly $(BIN)/istanbul cover --print summary $(BIN)/_mocha -- --recursive
 
 watch: all
 	@echo [watch]

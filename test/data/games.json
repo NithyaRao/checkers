@@ -1,3 +1,203 @@
 [
-{}
+{
+    "_id" : ObjectId("57891fc4691a3a2c38ae59d9"),
+    "player1" : ObjectId("57891fc4691a3a2c38ae59d7"),
+    "player2" : ObjectId("57891fc4691a3a2c38ae59d8"),
+    "dateCreated" : ISODate("2016-07-15T17:39:16.330Z"),
+    "board" : [
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 0,
+            "x" : 1
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 0,
+            "x" : 3
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 0,
+            "x" : 5
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 0,
+            "x" : 7
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 1,
+            "x" : 0
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 1,
+            "x" : 2
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 1,
+            "x" : 4
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 1,
+            "x" : 6
+        },
+        {
+            "isKing" : false,
+            "player" : "",
+            "y" : 2,
+            "x" : 1
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 2,
+            "x" : 3
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 2,
+            "x" : 5
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 2,
+            "x" : 7
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 7,
+            "x" : 0
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 7,
+            "x" : 2
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 7,
+            "x" : 4
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 7,
+            "x" : 6
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 6,
+            "x" : 1
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 6,
+            "x" : 3
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 6,
+            "x" : 5
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 6,
+            "x" : 7
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 5,
+            "x" : 0
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 5,
+            "x" : 2
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 5,
+            "x" : 4
+        },
+        {
+            "isKing" : false,
+            "player" : "player2",
+            "y" : 5,
+            "x" : 6
+        },
+        {
+            "isKing" : false,
+            "player" : "",
+            "y" : 3,
+            "x" : 0
+        },
+        {
+            "isKing" : false,
+            "player" : "",
+            "y" : 4,
+            "x" : 1
+        },
+        {
+            "isKing" : false,
+            "player" : "player1",
+            "y" : 3,
+            "x" : 2
+        },
+        {
+            "isKing" : false,
+            "player" : "",
+            "y" : 4,
+            "x" : 3
+        },
+        {
+            "isKing" : false,
+            "player" : "",
+            "y" : 3,
+            "x" : 4
+        },
+        {
+            "isKing" : false,
+            "player" : "",
+            "y" : 4,
+            "x" : 5
+        },
+        {
+            "isKing" : false,
+            "player" : "",
+            "y" : 3,
+            "x" : 6
+        },
+        {
+            "isKing" : false,
+            "player" : "",
+            "y" : 4,
+            "x" : 7
+        }
+    ],
+    "__v" : 0
+}
 ]

@@ -50,25 +50,43 @@ schema.methods.setCurrentPlayer = function (player) {
   return true;
 };
 
-schema.methods.validMove = function (pos1, pos2) {
-  const temp = this.board.find((entry) => entry.x === pos2.x
-    && entry.y === pos2.y && entry.player === '');
-  if (temp) {
-    if (Math.abs(temp.x * 1 - pos1.x * 1) === 1 && Math.abs(temp.y * 1 - pos1.y * 1) === 1) {
-      return true;
-    }
+schema.methods.checkCurrentPlayer = function (player) {
+  if (this.currentPlayer === player._id) {
+    return true;
   }
   return false;
 };
 
-schema.methods.move = function (pos1, pos2) {
-  const curPosIndex = this.board.findIndex((entry) => entry.x === pos1.x
-     && entry.y === pos1.y);
-  const movePosIndex = this.board.findIndex((entry) => entry.x === pos2.x
-     && entry.y === pos2.y);
-  this.board[movePosIndex].player = this.board[curPosIndex].player;
-  // console.log('this.board.movePos.player: ', this.board[movePosIndex].player);
-  this.board[curPosIndex].player = '';
+schema.methods.validMove = function (player, pos1, pos2) {
+  if (!this.checkCurrentPlayer(player)) {
+    return 'Not current Player';
+  }
+  const temp = this.board.find((entry) => entry.x === pos2.x
+    && entry.y === pos2.y && entry.player === '');
+  if (temp) {
+    if (Math.abs(temp.x * 1 - pos1.x * 1) === 1 && Math.abs(temp.y * 1 - pos1.y * 1) === 1) {
+      return null;
+    }
+  }
+  return 'Invalid Move';
+};
+
+schema.methods.move = function (player, pos1, pos2, cb) {
+  const error1 = this.validMove(player, pos1, pos2);
+  if (error1 === null) {
+    const curPosIndex = this.board.findIndex((entry) => entry.x === pos1.x
+       && entry.y === pos1.y);
+    const movePosIndex = this.board.findIndex((entry) => entry.x === pos2.x
+       && entry.y === pos2.y);
+    this.board[movePosIndex].player = this.board[curPosIndex].player;
+    this.board[curPosIndex].player = '';
+    this.markModified('board');
+    this.save((err, game) => {
+      cb(null, game);
+    });
+  } else {
+    cb(error1);
+  }
 };
 
 module.exports = mongoose.model('Game', schema);
